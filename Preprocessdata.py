@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Read in the CSV file
-df = pd.read_csv("MixedTraffic.csv")
+df = pd.read_csv(r"C:\Users\Public\My Project\Miniproject\MiniProject\MixedTraffic.csv")
 
 # Specify the source IPs that you want to keep as a list
 source_ips_to_keep = ['10.0.0.1','10.0.0.2','10.0.0.3', '10.0.0.4', '10.0.0.5']

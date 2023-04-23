@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load the data into a pandas DataFrame
-data = pd.read_csv('filteredMixTrafficdata.csv')
+data = pd.read_csv(r'C:\Users\Public\My Project\Miniproject\MiniProject\filteredMixTrafficdata.csv')
 
 # Define the categorical and numerical columns
 cat_cols = ['Source', 'Destination', 'Protocol']
