@@ -22,7 +22,7 @@ ct = ColumnTransformer([
 X = ct.fit_transform(data)
 
 # Define the k-means clustering algorithm
-kmeans = KMeans(n_clusters=2, random_state=10)
+kmeans = KMeans(n_clusters=2, random_state=42)
 
 # Fit the k-means clustering algorithm to the data
 kmeans.fit(X) # only use the first column (Time) for clustering
@@ -40,15 +40,15 @@ data.to_csv('labeled_data2.csv', index=False)
 plt.scatter(data['Source'], data['Time'])
 plt.xlabel('Source')
 plt.ylabel('Time')
-plt.title('Scatter plot of Soure and time of labeled data')
+plt.title('Scatter plot of Source and time of labeled data')
 plt.show()
 
-# Plot scatter plot of Soure and label of labeled data
-plt.scatter(data['Source'], data['Label'])
-plt.xlabel('Source')
-plt.ylabel('Label')
-plt.title('Scatter plot of Soure and Label of labeled data')
-plt.show()
+# # Plot scatter plot of Soure and label of labeled data
+# plt.scatter(data['Source'], data['Label'])
+# plt.xlabel('Source')
+# plt.ylabel('Label')
+# plt.title('Scatter plot of Soure and Label of labeled data')
+# plt.show()
 
 # Plot graph
 grouped = data.groupby(['Source']).size().reset_index(name='Counts')

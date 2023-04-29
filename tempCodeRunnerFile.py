@@ -1,1 +1,5 @@
-MixedTraffic
+plt.scatter(data['Source'], data['Label'])
+plt.xlabel('Source')
+plt.ylabel('Label')
+plt.title('Scatter plot of Soure and Label of labeled data')
+plt.show()
