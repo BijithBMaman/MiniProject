@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load the data into a pandas DataFrame
-data = pd.read_csv(r'C:\Users\Public\My Project\Miniproject\MiniProject\filteredMixTrafficdata.csv')
+data = pd.read_csv(r'C:\Users\Public\My Project\Miniproject\MiniProject\NewTest\MixTrafficPreprocess.csv')
 
 # Define the categorical and numerical columns
 cat_cols = ['Source', 'Destination', 'Protocol']
@@ -43,12 +43,12 @@ plt.ylabel('Time')
 plt.title('Scatter plot of Source and time of labeled data')
 plt.show()
 
-# # Plot scatter plot of Soure and label of labeled data
-# plt.scatter(data['Source'], data['Label'])
-# plt.xlabel('Source')
-# plt.ylabel('Label')
-# plt.title('Scatter plot of Soure and Label of labeled data')
-# plt.show()
+# Plot scatter plot of Soure and label of labeled data
+plt.scatter(data['Source'], data['Label'])
+plt.xlabel('Source')
+plt.ylabel('Label')
+plt.title('Scatter plot of Soure and Label of labeled data')
+plt.show()
 
 # Plot graph
 grouped = data.groupby(['Source']).size().reset_index(name='Counts')

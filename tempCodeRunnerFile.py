@@ -1,3 +1,4 @@
+# Plot scatter plot of Soure and label of labeled data
 plt.scatter(data['Source'], data['Label'])
 plt.xlabel('Source')
 plt.ylabel('Label')
