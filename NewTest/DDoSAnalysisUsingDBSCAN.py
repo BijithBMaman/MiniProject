@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.cluster import OPTICS
+from sklearn.cluster import DBSCAN
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
@@ -23,22 +23,22 @@ ct = ColumnTransformer([
 # Transform the data
 X = ct.fit_transform(data)
 
-# Define the OPTICS clustering algorithm
+# Define the DBSCAN clustering algorithm
 epsilon = 0.5  # Define the maximum distance between samples to be considered neighbors
 min_samples = 2  # Define the minimum number of samples in a neighborhood for a point to be a core point
-optics = OPTICS(eps=epsilon, min_samples=min_samples)
+dbscan = DBSCAN(eps=epsilon, min_samples=min_samples)
 
-# Fit the OPTICS clustering algorithm to the data
-optics.fit(X)  # use all columns for clustering
+# Fit the DBSCAN clustering algorithm to the data
+dbscan.fit(X)  # use all columns for clustering
 
 # Print the cluster labels for each data point
-print(optics.labels_)
+print(dbscan.labels_)
 
-labels = optics.labels_
+labels = dbscan.labels_
 data['Label'] = labels
 
 # Save the DataFrame with the labels to a new CSV file
-data.to_csv('labeled_data_optics.csv', index=False)
+data.to_csv('labeled_data_dbscan.csv', index=False)
 
 # Plot scatter plot of Soure and time of labeled data
 plt.scatter(data['Source'], data['Time'])

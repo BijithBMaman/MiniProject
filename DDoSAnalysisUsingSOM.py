@@ -1,10 +1,9 @@
 import pandas as pd
-from sklearn.cluster import OPTICS
-from sklearn.preprocessing import StandardScaler
+from minisom import MiniSom
+import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
-import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load the data into a pandas DataFrame
@@ -23,31 +22,41 @@ ct = ColumnTransformer([
 # Transform the data
 X = ct.fit_transform(data)
 
-# Define the OPTICS clustering algorithm
-epsilon = 0.5  # Define the maximum distance between samples to be considered neighbors
-min_samples = 2  # Define the minimum number of samples in a neighborhood for a point to be a core point
-optics = OPTICS(eps=epsilon, min_samples=min_samples)
+# Define the SOM parameters
+n_rows = 10
+n_cols = 10
+input_len = X.shape[1]
+sigma = 1.0
+learning_rate = 0.5
+iterations = 100
 
-# Fit the OPTICS clustering algorithm to the data
-optics.fit(X)  # use all columns for clustering
+# Initialize the SOM
+som = MiniSom(n_rows, n_cols, input_len, sigma=sigma, learning_rate=learning_rate)
 
-# Print the cluster labels for each data point
-print(optics.labels_)
+# Train the SOM
+som.random_weights_init(X)
+som.train_random(X, iterations)
 
-labels = optics.labels_
+# Get the coordinates of the winning neurons for each input sample
+winning_neurons = np.array([som.winner(x) for x in X])
+
+# Map the winning neuron coordinates to cluster labels
+labels = np.ravel_multi_index(winning_neurons.T, (n_rows, n_cols)) # type: ignore
+
+# Assign the labels to the data
 data['Label'] = labels
 
 # Save the DataFrame with the labels to a new CSV file
-data.to_csv('labeled_data_optics.csv', index=False)
+data.to_csv('labeled_data_som.csv', index=False)
 
-# Plot scatter plot of Soure and time of labeled data
+# Plot scatter plot of Source and time of labeled data
 plt.scatter(data['Source'], data['Time'])
 plt.xlabel('Source')
 plt.ylabel('Time')
 plt.title('Scatter plot of Source and time of labeled data')
 plt.show()
 
-# Plot scatter plot of Soure and label of labeled data
+# Plot scatter plot of Source and label of labeled data
 plt.scatter(data['Source'], data['Label'])
 plt.xlabel('Source')
 plt.ylabel('Label')
